@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trail Making Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="trail_making.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
+            <h1>Welcome to Trail Making Test</h1>
+            <div class="instructions">
+                <p>This test consists of two rounds with different patterns.</p>
+                <p>Click the button below to begin with Round 1 instructions.</p>
+            </div>
+            <button id="startButton">Begin Test</button>
+        </div>
+
+        <!-- Round 1 Instruction Screen -->
+        <div id="round1InstructionScreen" style="display: none;">
+            <h1>Round 1 Instructions</h1>
+            <div class="instructions">
+                <p>Click on the circles in ascending order (1-2-3-4...), starting with 1 and ending with 25.</p>
+                <p>The circles will be randomly distributed on the screen.</p>
+                <p>Try to complete the sequence as quickly as possible.</p>
+            </div>
+            <button id="round1StartButton">Start Practice Round</button>
+        </div>
+
+        <!-- Round 1 Practice Screen -->
+        <div id="round1PracticeScreen" style="display: none;">
+            <h1>Round 1 Practice</h1>
+            <div class="instructions">
+                <p>Practice clicking the circles in order (1-2-3...).</p>
+                <p>This won't be timed - just get familiar with the task.</p>
+                <p id="practiceFeedback"></p>
+            </div>
+            <div id="practiceTrailContainer" class="trail-container"></div>
+            <button id="round1PracticeCompleteButton">I'm Ready for the Real Test</button>
+        </div>
+
+        <!-- Round 1 Test Screen -->
+        <div id="round1TestScreen" style="display: none;">
+            <h1>Round 1</h1>
+            <p>Time: <span id="time">0</span> seconds</p>
+            <div id="trailContainer" class="trail-container"></div>
+        </div>
+
+        <!-- Round 1 Complete Screen -->
+        <div id="round1CompleteScreen" style="display: none;">
+            <h1>Round 1 Complete!</h1>
+            <div id="round1Result" class="results-container"></div>
+            <button id="proceedToRound2Button">Continue to Round 2</button>
+        </div>
+
+        <!-- Round 2 Instruction Screen -->
+        <div id="round2InstructionScreen" style="display: none;">
+            <h1>Round 2 Instructions</h1>
+            <div class="instructions">
+                <p>Now alternate between numbers and letters (1-A-2-B...), starting with 1 and ending with 13.</p>
+                <p>The circles will be randomly distributed on the screen.</p>
+                <p>Try to complete the sequence as quickly as possible.</p>
+            </div>
+            <button id="round2StartButton">Start Practice Round</button>
+        </div>
+
+        <!-- Round 2 Practice Screen -->
+        <div id="round2PracticeScreen" style="display: none;">
+            <h1>Round 2 Practice</h1>
+            <div class="instructions">
+                <p>Practice alternating between numbers and letters (1-A-2-B...).</p>
+                <p>This won't be timed - just get familiar with the task.</p>
+                <p id="round2PracticeFeedback"></p>
+            </div>
+            <div id="round2PracticeTrailContainer" class="trail-container"></div>
+            <button id="round2PracticeCompleteButton">I'm Ready for the Real Test</button>
+        </div>
+
+        <!-- Round 2 Test Screen -->
+        <div id="round2TestScreen" style="display: none;">
+            <h1>Round 2</h1>
+            <p>Time: <span id="round2Time">0</span> seconds</p>
+            <div id="round2TrailContainer" class="trail-container"></div>
+        </div>
+
+        <!-- Final Results Screen -->
+        <div id="finalResultsScreen" style="display: none;">
+            <h1>Test Complete!</h1>
+            <div id="finalResults" class="results-container"></div>
+            <button id="goToAnotherTest">Go to Another Test</button>
+        </div>
+    </div>
+    <script src="data_collector.js"></script>
+    <script src="trail_making.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go/No-Go Task</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="go_no_go.css">
+</head>
+
+<body>
+    <div class="container" id="welcomeScreen">
+        <h1>Welcome to the GO/NO-GO TEST!</h1>
+
+        <div class="instructions">
+            <p>If an <span class="orange-text">ORANGE</span> square appears, press the <span
+                    class="space-key">SPACE</span> key on the keyboard.</p>
+            <p>If a <span class="blue-text">BLUE</span> square appears, do not press anything.</p>
+            <p>You have only one second to respond and please be as fast as you can.</p>
+        </div>
+
+        <button id="goNoGoButton">Start Test</button>
+    </div>
+
+    <div class="container" id="testContainer" style="display: none;">
+        <div id="testScreen">
+            <div id="shapeDisplay" class="shape-display">+</div>
+            <p>Round: <span id="currentRound">1</span>/2</p>
+            <p>Time Left: <span id="timeLeft">30</span> seconds</p>
+            <p id="message"></p>
+        </div>
+
+        <div id="resultsScreen" style="display: none;">
+            <h2>Test Results</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Round</th>
+                        <th>Total Moves</th>
+                        <th>Correct Moves</th>
+                        <th>Wrong Moves</th>
+                        <th>Avg Reaction Time (ms)</th> <!-- New column -->
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+            <button id="goToAnotherTest">Go to Another Test</button>
+        </div>
+    </div>
+    <script src="data_collector.js"></script>
+    <script src="go_no_go.js"></script>
+</body>
+
+</html>

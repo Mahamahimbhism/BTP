@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finger Tapping Task</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="finger_tapping.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to Finger Tapping Test</h1>
+
+        <div class="instructions">
+            <p>Press the <span class="space-key">SPACE BAR</span> as many times as you can.</p>
+            <p>You have <span style="color: #e74c3c; font-weight: bold;">30 seconds</span> of time.</p>
+        </div>
+
+        <button id="tapButton">Start Test</button>
+
+        <div id="testScreen" style="display: none;">
+            <p class="message" id="practiceMessage"></p>
+            <p>Taps: <span id="tapCount">0</span></p>
+            <p>Time Left: <span id="timeLeft">30</span> seconds</p>
+        </div>
+
+        <p id="result"></p>
+        <button id="goToAnotherTest" style="display: none;">Go to Another Test</button>
+    </div>
+    <script src="data_collector.js"></script>
+    <script src="finger_tapping.js"></script>
+</body>
+
+</html>
