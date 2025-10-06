@@ -4,7 +4,7 @@ class GameDataCollector {
         this.gameName = gameName;
         this.data = [];
         this.startTime = new Date();
-        
+
         // Initialize or get session data
         this.sessionData = JSON.parse(sessionStorage.getItem('gameSessionData')) || {
             sessionStart: new Date().toISOString(),

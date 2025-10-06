@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Generate final JSON file when reaching completion page
     if (window.GameDataCollector) {
         GameDataCollector.generateSessionJSON();
@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // View Results Button
     const viewResultsBtn = document.getElementById('viewResults');
     const resultsContainer = document.getElementById('resultsContainer');
-    
-    viewResultsBtn.addEventListener('click', function() {
+
+    viewResultsBtn.addEventListener('click', function () {
         // Get current user data
         const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        
+
         if (currentUser) {
             // Toggle results display
             if (resultsContainer.style.display === 'none' || !resultsContainer.style.display) {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(userData)
         }).catch(err => console.log('Error saving to Google Sheets:', err));
         */
-        
+
         // For now, we'll just log the data
         console.log('Data to be saved to Google Sheets:', userData);
     }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Download all results (from localStorage)
-    document.getElementById('downloadResults').addEventListener('click', function() {
+    document.getElementById('downloadResults').addEventListener('click', function () {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         if (users.length === 0) {
             alert('No results found.');
