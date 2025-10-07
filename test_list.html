@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,29 +18,30 @@
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <div class="form-header">
             <h1>Participant Information</h1>
             <p>Please provide your details to begin the cognitive tests</p>
         </div>
-        
+
         <form id="userInfoForm">
             <div class="form-group">
                 <label for="userName">Full Name</label>
                 <input type="text" id="userName" class="form-control" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="userEmail">Email Address</label>
                 <input type="email" id="userEmail" class="form-control" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="userAge">Age</label>
                 <input type="number" id="userAge" class="form-control" min="18" required>
             </div>
-            
+
             <div class="form-group">
                 <label>Sex assigned at birth</label>
                 <div class="radio-group">
@@ -54,18 +56,19 @@
                     </label>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="checkbox-label">
                     <input type="checkbox" id="consent" required>
-                    I consent to participate in these cognitive tests and understand that my data will be used for research purposes.
+                    I consent to participate in these cognitive tests and understand that my data will be used for
+                    research purposes.
                 </label>
             </div>
-            
+
             <div class="form-group">
                 <h3>Current State Assessment</h3>
                 <p>Please rate your current state on a scale of 0-5:</p>
-                
+
                 <div class="scale-question">
                     <label for="sleepiness">Sleepiness (0 = Fully awake, 5 = Extremely sleepy)</label>
                     <div class="range-container">
@@ -73,7 +76,7 @@
                         <span class="range-value" id="sleepinessValue">0</span>
                     </div>
                 </div>
-                
+
                 <div class="scale-question">
                     <label for="feeling">How are you feeling now? (0 = Very bad, 5 = Excellent)</label>
                     <div class="range-container">
@@ -81,7 +84,7 @@
                         <span class="range-value" id="feelingValue">0</span>
                     </div>
                 </div>
-                
+
                 <div class="scale-question">
                     <label for="mood">Satiety (0 = Hungry, 5 = Full/Content)</label>
                     <div class="range-container">
@@ -90,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <button type="submit" class="btn-submit">Begin Cognitive Tests</button>
         </form>
     </div>
@@ -98,4 +101,5 @@
     <script src="video_recorder.js"></script>
     <script src="test_list.js"></script>
 </body>
+
 </html>

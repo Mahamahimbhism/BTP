@@ -99,7 +99,7 @@ class VideoRecorder {
             this.stream.getTracks().forEach(track => track.stop());
             this.stream = null;
         }
-        
+
         const videoPreview = document.getElementById('camera-preview');
         if (videoPreview) {
             videoPreview.remove();

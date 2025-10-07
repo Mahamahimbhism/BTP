@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     // Stop video recording if it was started
     if (sessionStorage.getItem('recordingStarted') === 'true') {
         const videoRecorder = new VideoRecorder();
@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     // View Results Button
     const viewResultsBtn = document.getElementById('viewResults');
     const resultsContainer = document.getElementById('resultsContainer');
-    
-    viewResultsBtn.addEventListener('click', function() {
+
+    viewResultsBtn.addEventListener('click', function () {
         // Get current user data
         const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        
+
         if (currentUser) {
             // Toggle results display
             if (resultsContainer.style.display === 'none' || !resultsContainer.style.display) {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Download all results (from localStorage)
-    document.getElementById('downloadResults').addEventListener('click', function() {
+    document.getElementById('downloadResults').addEventListener('click', function () {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         if (users.length === 0) {
             alert('No results found.');
