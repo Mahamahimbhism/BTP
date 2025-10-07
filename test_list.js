@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize video recorder
+    const videoRecorder = new VideoRecorder();
+    // Store in sessionStorage for access across pages
+    sessionStorage.setItem('videoRecorderInitialized', 'true');
+    
     // Check for existing user session
     const currentUser = sessionStorage.getItem('currentUser');
     
@@ -28,8 +33,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle form submission
     const userInfoForm = document.getElementById('userInfoForm');
     if (userInfoForm) {
-        userInfoForm.addEventListener('submit', function(e) {
+        userInfoForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            // Request camera access before starting tests
+            const videoRecorder = new VideoRecorder();
+            const cameraAccess = await videoRecorder.setupCamera();
+            if (!cameraAccess) {
+                if (!confirm('Camera access was denied. Continue without video recording?')) {
+                    return;
+                }
+            } else {
+                // Start recording if camera access was granted
+                videoRecorder.startRecording();
+                sessionStorage.setItem('recordingStarted', 'true');
+            }
             
             // Get form values
             const formData = {
