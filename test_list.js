@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentUser = sessionStorage.getItem('currentUser');
 
     if (currentUser) {
-        window.location.href = 'finger_tapping.html';
+        window.location.href = 'finger_tapping/finger_tapping.html';
         return;
     }
 
