@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     // Store camera permission state
                     sessionStorage.setItem('cameraPermissionGranted', 'true');
-                    
+
                     // Start recording if camera access was granted
                     const started = videoRecorder.startRecording();
                     if (started) {
