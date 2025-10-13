@@ -65,19 +65,36 @@ class VideoRecorder {
     // Stop recording and save video
     async stopRecording(filename) {
         return new Promise((resolve, reject) => {
-            if (!this.mediaRecorder || this.mediaRecorder.state === 'inactive') {
-                reject('No active recording');
+            if (!this.mediaRecorder) {
+                console.warn('No media recorder found');
+                resolve();
+                return;
+            }
+
+            if (this.mediaRecorder.state === 'inactive') {
+                console.warn('Recording already stopped');
+                resolve();
                 return;
             }
 
             this.mediaRecorder.onstop = () => {
-                const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
-                this.saveVideo(blob, filename);
+                try {
+                    const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
+                    this.saveVideo(blob, filename);
+                } catch (error) {
+                    console.error('Error saving video:', error);
+                }
                 this.isRecording = false;
                 resolve();
             };
 
-            this.mediaRecorder.stop();
+            try {
+                this.mediaRecorder.stop();
+            } catch (error) {
+                console.error('Error stopping recording:', error);
+                this.isRecording = false;
+                resolve();
+            }
         });
     }
 

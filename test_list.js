@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize video recorder
-    const videoRecorder = new VideoRecorder();
-    // Store in sessionStorage for access across pages
-    sessionStorage.setItem('videoRecorderInitialized', 'true');
-
     // Check for existing user session
     const currentUser = sessionStorage.getItem('currentUser');
 
@@ -39,14 +34,24 @@ document.addEventListener('DOMContentLoaded', function () {
             // Request camera access before starting tests
             const videoRecorder = new VideoRecorder();
             const cameraAccess = await videoRecorder.setupCamera();
+
             if (!cameraAccess) {
                 if (!confirm('Camera access was denied. Continue without video recording?')) {
                     return;
                 }
             } else {
-                // Start recording if camera access was granted
-                videoRecorder.startRecording();
-                sessionStorage.setItem('recordingStarted', 'true');
+                try {
+                    // Start recording if camera access was granted
+                    const started = videoRecorder.startRecording();
+                    if (started) {
+                        sessionStorage.setItem('recordingStarted', 'true');
+                    }
+                } catch (error) {
+                    console.error('Error starting recording:', error);
+                    if (!confirm('Error starting video recording. Continue without recording?')) {
+                        return;
+                    }
+                }
             }
 
             // Get form values
@@ -98,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             sessionStorage.setItem('currentUser', JSON.stringify(user));
 
             // Redirect to first test
-            window.location.href = 'finger_tapping.html';
+            window.location.href = 'finger_tapping/finger_tapping.html';
         });
     }
 
