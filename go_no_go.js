@@ -4,7 +4,7 @@ let wrongResponses = 0;
 let totalTrials = 0;
 const shapes = ['orange', 'blue'];
 let interval;
-let testDuration = 30;
+let testDuration = 5;
 let timeLeft = testDuration;
 let timerInterval;
 let isTestRunning = false;

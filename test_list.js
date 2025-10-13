@@ -36,69 +36,68 @@ document.addEventListener('DOMContentLoaded', function () {
         userInfoForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Request camera access before starting tests
+            // Start camera and recording
             const videoRecorder = new VideoRecorder();
-            const cameraAccess = await videoRecorder.setupCamera();
-            if (!cameraAccess) {
+            const started = await videoRecorder.startCamera();
+            if (!started) {
                 if (!confirm('Camera access was denied. Continue without video recording?')) {
                     return;
                 }
             } else {
-                // Start recording if camera access was granted
-                videoRecorder.startRecording();
                 sessionStorage.setItem('recordingStarted', 'true');
+                window.activeVideoRecorder = videoRecorder;
+
+                // Get form values
+                const formData = {
+                    name: document.getElementById('userName').value.trim(),
+                    email: document.getElementById('userEmail').value.trim(),
+                    age: parseInt(document.getElementById('userAge').value),
+                    sex: document.querySelector('input[name="sex"]:checked')?.value,
+                    consent: document.getElementById('consent').checked,
+                    sleepiness: parseInt(document.getElementById('sleepiness').value),
+                    feeling: parseInt(document.getElementById('feeling').value),
+                    mood: parseInt(document.getElementById('mood').value)
+                };
+
+                // Validate form
+                if (!formData.name || !formData.email || isNaN(formData.age) || !formData.sex || !formData.consent) {
+                    showError('Please fill all required fields');
+                    return;
+                }
+
+                if (formData.age < 18) {
+                    showError('You must be at least 18 years old to participate');
+                    return;
+                }
+
+                // Create user object
+                const user = {
+                    id: Date.now().toString(),
+                    ...formData,
+                    stateAssessment: {
+                        sleepiness: formData.sleepiness,
+                        feeling: formData.feeling,
+                        mood: formData.mood,
+                        timestamp: new Date().toISOString()
+                    },
+                    results: {
+                        fingerTapping: null,
+                        goNoGo: null,
+                        pvt: null,
+                        trailMaking: null
+                    },
+                    testStartTime: new Date().toISOString(),
+                    completedTests: []
+                };
+
+                // Save to storage
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+                // Redirect to first test
+                window.location.href = 'finger_tapping.html';
             }
-
-            // Get form values
-            const formData = {
-                name: document.getElementById('userName').value.trim(),
-                email: document.getElementById('userEmail').value.trim(),
-                age: parseInt(document.getElementById('userAge').value),
-                sex: document.querySelector('input[name="sex"]:checked')?.value,
-                consent: document.getElementById('consent').checked,
-                sleepiness: parseInt(document.getElementById('sleepiness').value),
-                feeling: parseInt(document.getElementById('feeling').value),
-                mood: parseInt(document.getElementById('mood').value)
-            };
-
-            // Validate form
-            if (!formData.name || !formData.email || isNaN(formData.age) || !formData.sex || !formData.consent) {
-                showError('Please fill all required fields');
-                return;
-            }
-
-            if (formData.age < 18) {
-                showError('You must be at least 18 years old to participate');
-                return;
-            }
-
-            // Create user object
-            const user = {
-                id: Date.now().toString(),
-                ...formData,
-                stateAssessment: {
-                    sleepiness: formData.sleepiness,
-                    feeling: formData.feeling,
-                    mood: formData.mood,
-                    timestamp: new Date().toISOString()
-                },
-                results: {
-                    fingerTapping: null,
-                    goNoGo: null,
-                    pvt: null,
-                    trailMaking: null
-                },
-                testStartTime: new Date().toISOString(),
-                completedTests: []
-            };
-
-            // Save to storage
-            users.push(user);
-            localStorage.setItem('users', JSON.stringify(users));
-            sessionStorage.setItem('currentUser', JSON.stringify(user));
-
-            // Redirect to first test
-            window.location.href = 'finger_tapping.html';
         });
     }
 

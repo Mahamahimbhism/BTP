@@ -1,7 +1,7 @@
 let startTime;
 let reactionTimes = [];
 let falseStarts = 0;
-let testDuration = 30;
+let testDuration = 5;
 let timeLeft = testDuration;
 let timerInterval;
 let isTestRunning = false;

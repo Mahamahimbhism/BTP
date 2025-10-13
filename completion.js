@@ -1,17 +1,23 @@
 document.addEventListener('DOMContentLoaded', async function () {
     // Stop video recording if it was started
     if (sessionStorage.getItem('recordingStarted') === 'true') {
-        const videoRecorder = new VideoRecorder();
+        const videoRecorder = window.activeVideoRecorder;
         if (videoRecorder) {
-            await videoRecorder.stopRecording(`cognitive_test_session_${new Date().toISOString().split('T')[0]}`);
-            videoRecorder.stopCamera();
+            try {
+                await videoRecorder.stopAndSave(`cognitive_test_session_${new Date().toISOString().split('T')[0]}`);
+            } catch (error) {
+                console.error('Error stopping video recording:', error);
+            }
             sessionStorage.removeItem('recordingStarted');
+            delete window.activeVideoRecorder;
         }
     }
 
-    // Generate final JSON file when reaching completion page
+    // Generate final JSON file when reaching completion page with a small delay to ensure data is saved
     if (window.GameDataCollector) {
-        GameDataCollector.generateSessionJSON();
+        setTimeout(() => {
+            GameDataCollector.generateSessionJSON();
+        }, 1000);
     }
 
     // View Results Button
