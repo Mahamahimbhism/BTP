@@ -31,26 +31,29 @@ document.addEventListener('DOMContentLoaded', function () {
         userInfoForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Request camera access before starting tests
-            const videoRecorder = new VideoRecorder();
-            const cameraAccess = await videoRecorder.setupCamera();
+            try {
+                // Request camera access before starting tests
+                const videoRecorder = new VideoRecorder();
+                const cameraAccess = await videoRecorder.setupCamera();
 
-            if (!cameraAccess) {
-                if (!confirm('Camera access was denied. Continue without video recording?')) {
-                    return;
-                }
-            } else {
-                try {
+                if (!cameraAccess) {
+                    if (!confirm('Camera access was denied. Continue without video recording?')) {
+                        return;
+                    }
+                } else {
+                    // Store camera permission state
+                    sessionStorage.setItem('cameraPermissionGranted', 'true');
+                    
                     // Start recording if camera access was granted
                     const started = videoRecorder.startRecording();
                     if (started) {
                         sessionStorage.setItem('recordingStarted', 'true');
                     }
-                } catch (error) {
-                    console.error('Error starting recording:', error);
-                    if (!confirm('Error starting video recording. Continue without recording?')) {
-                        return;
-                    }
+                }
+            } catch (error) {
+                console.error('Error with camera setup:', error);
+                if (!confirm('Error with camera setup. Continue without recording?')) {
+                    return;
                 }
             }
 

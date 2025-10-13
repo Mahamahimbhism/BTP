@@ -319,7 +319,7 @@ function showFinalResults() {
             location.href = randomTest;
         } else {
             sessionStorage.removeItem('completedTests');
-            location.href = 'completion.html';
+            location.href = '../completion/completion.html';
         }
     });
 }

@@ -5,10 +5,15 @@ class VideoRecorder {
         this.recordedChunks = [];
         this.stream = null;
         this.isRecording = false;
+
+        // Try to restore existing stream if we have one
+        if (sessionStorage.getItem('cameraPermissionGranted') === 'true') {
+            this.setupCamera(true);
+        }
     }
 
     // Request camera permission and start preview
-    async setupCamera() {
+    async setupCamera(skipPermission = false) {
         try {
             // Remove any existing preview
             const existingPreview = document.getElementById('camera-preview');
@@ -21,13 +26,17 @@ class VideoRecorder {
                 this.stream.getTracks().forEach(track => track.stop());
             }
 
-            this.stream = await navigator.mediaDevices.getUserMedia({
-                video: {
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                },
-                audio: false
-            });
+            // Only request camera permission if we haven't already or if explicitly requested
+            if (!skipPermission || !sessionStorage.getItem('cameraPermissionGranted')) {
+                this.stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: false
+                });
+                sessionStorage.setItem('cameraPermissionGranted', 'true');
+            }
 
             // Create video preview element
             const videoPreview = document.createElement('video');
