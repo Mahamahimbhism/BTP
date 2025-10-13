@@ -10,6 +10,17 @@ class VideoRecorder {
     // Request camera permission and start preview
     async setupCamera() {
         try {
+            // Remove any existing preview
+            const existingPreview = document.getElementById('camera-preview');
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+
+            // If we already have a stream, stop all tracks
+            if (this.stream) {
+                this.stream.getTracks().forEach(track => track.stop());
+            }
+
             this.stream = await navigator.mediaDevices.getUserMedia({
                 video: {
                     width: { ideal: 1280 },
@@ -32,8 +43,14 @@ class VideoRecorder {
                 border-radius: 8px;
                 border: 2px solid #3498db;
                 background-color: #000;
+                z-index: 9999;
             `;
             document.body.appendChild(videoPreview);
+
+            // Ensure the video actually starts playing
+            await videoPreview.play().catch(error => {
+                console.error('Error playing video:', error);
+            });
 
             return true;
         } catch (error) {

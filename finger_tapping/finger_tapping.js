@@ -6,6 +6,15 @@ let isTestRunning = false;
 let isPracticeRound = false;
 let practiceDuration = 5;
 let dataCollector = null;
+let videoRecorder = null;
+
+// Initialize video recorder if it was started in test_list
+document.addEventListener('DOMContentLoaded', async function () {
+    if (sessionStorage.getItem('recordingStarted') === 'true') {
+        videoRecorder = new VideoRecorder();
+        await videoRecorder.setupCamera();
+    }
+});
 
 document.getElementById('tapButton').addEventListener('click', startInitialTest);
 document.addEventListener('keydown', handleKeyPress);
@@ -107,9 +116,14 @@ function endTest() {
 
     // Redirect to another random test when "Go to Another Test" is clicked
     document.getElementById('goToAnotherTest').addEventListener('click', () => {
-        const tests = ['finger_tapping.html', 'go_no_go.html'/*, 'conners_cpt.html'*/, 'pvt.html', 'trail_making.html'];
+        const tests = [
+            '../finger_tapping/finger_tapping.html',
+            '../go_no_go/go_no_go.html',
+            '../pvt/pvt.html',
+            '../trail_making/trail_making.html'
+        ];
         let completedTests = JSON.parse(sessionStorage.getItem('completedTests')) || [];
-        completedTests.push('finger_tapping.html');
+        completedTests.push('../finger_tapping/finger_tapping.html');
         sessionStorage.setItem('completedTests', JSON.stringify(completedTests));
 
         const availableTests = tests.filter(test => !completedTests.includes(test));
@@ -118,7 +132,7 @@ function endTest() {
             location.href = randomTest;
         } else {
             sessionStorage.removeItem('completedTests');
-            location.href = 'completion.html';
+            location.href = '../completion/completion.html';
         }
     });
 }
