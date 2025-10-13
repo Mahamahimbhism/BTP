@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Tests Suite</title>
+    <!-- Include all CSS files -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="form-styles.css">
+    <link rel="stylesheet" href="finger_tapping.css">
+    <link rel="stylesheet" href="go_no_go.css">
+    <link rel="stylesheet" href="pvt.css">
+    <link rel="stylesheet" href="trail_making.css">
+    <link rel="stylesheet" href="completion.css">
+    <link rel="stylesheet" href="transitions.css">
+</head>
+
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-message" id="loadingMessage">Preparing next test...</div>
+    </div>
+
+    <!-- Test Announcement -->
+    <div class="test-announcement" id="testAnnouncement">
+        <h2 id="announcementTitle">Next Test:</h2>
+        <p id="announcementMessage"></p>
+    </div>
+
+    <!-- Welcome Screen -->
+    <section id="welcomeScreen" class="screen">
+        <div class="hero">
+            <div class="container">
+                <h1>Welcome to Cognitive Tests</h1>
+                <p class="subtitle">by Cognitive Science Lab, IIT Kharagpur</p>
+                <div class="button-group">
+                    <button id="readMoreBtn" class="btn-secondary">Read More</button>
+                    <button id="beginTestBtn" class="btn-primary">Begin Tests</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form Screen -->
+    <section id="registrationScreen" class="screen" style="display: none;">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Participant Information</h1>
+                <p>Please provide your details to begin the cognitive tests</p>
+            </div>
+
+            <form id="userInfoForm">
+                <div class="form-group">
+                    <label for="userName">Full Name</label>
+                    <input type="text" id="userName" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Email Address</label>
+                    <input type="email" id="userEmail" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userAge">Age</label>
+                    <input type="number" id="userAge" class="form-control" min="18" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Sex assigned at birth</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="sex" value="male" required> Male
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="sex" value="female"> Female
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="sex" value="other"> Other
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consent" required>
+                        I consent to participate in these cognitive tests and understand that my data will be used for
+                        research purposes.
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <h3>Current State Assessment</h3>
+                    <p>Please rate your current state on a scale of 0-5:</p>
+
+                    <div class="scale-question">
+                        <label for="sleepiness">Sleepiness (0 = Fully awake, 5 = Extremely sleepy)</label>
+                        <div class="range-container">
+                            <input type="range" id="sleepiness" class="range-slider" min="0" max="5" step="1" value="0">
+                            <span class="range-value" id="sleepinessValue">0</span>
+                        </div>
+                    </div>
+
+                    <div class="scale-question">
+                        <label for="feeling">How are you feeling now? (0 = Very bad, 5 = Excellent)</label>
+                        <div class="range-container">
+                            <input type="range" id="feeling" class="range-slider" min="0" max="5" step="1" value="0">
+                            <span class="range-value" id="feelingValue">0</span>
+                        </div>
+                    </div>
+
+                    <div class="scale-question">
+                        <label for="mood">Satiety (0 = Hungry, 5 = Full/Content)</label>
+                        <div class="range-container">
+                            <input type="range" id="mood" class="range-slider" min="0" max="5" step="1" value="0">
+                            <span class="range-value" id="moodValue">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Begin Cognitive Tests</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Finger Tapping Test Screen -->
+    <section id="fingerTappingScreen" class="screen" style="display: none;">
+        <div class="container">
+            <h1>Welcome to Finger Tapping Test</h1>
+
+            <div class="instructions">
+                <p>Press the <span class="space-key">SPACE BAR</span> as many times as you can.</p>
+                <p>You have <span style="color: #e74c3c; font-weight: bold;">30 seconds</span> of time.</p>
+            </div>
+
+            <button id="tapButton">Start Test</button>
+
+            <div id="testScreen" style="display: none;">
+                <p class="message" id="practiceMessage"></p>
+                <p>Taps: <span id="tapCount">0</span></p>
+                <p>Time Left: <span id="timeLeft">30</span> seconds</p>
+            </div>
+
+            <p id="result"></p>
+        </div>
+    </section>
+
+    <!-- Go/No-Go Test Screen -->
+    <section id="goNoGoScreen" class="screen" style="display: none;">
+        <div class="container" id="goNoGoWelcome">
+            <h1>Welcome to the GO/NO-GO TEST!</h1>
+
+            <div class="instructions">
+                <p>If an <span class="orange-text">ORANGE</span> square appears, press the <span
+                        class="space-key">SPACE</span> key on the keyboard.</p>
+                <p>If a <span class="blue-text">BLUE</span> square appears, do not press anything.</p>
+                <p>You have only one second to respond and please be as fast as you can.</p>
+            </div>
+
+            <button id="goNoGoButton">Start Test</button>
+        </div>
+
+        <div class="container" id="goNoGoTest" style="display: none;">
+            <div id="testScreen">
+                <div id="shapeDisplay" class="shape-display">+</div>
+                <p>Round: <span id="currentRound">1</span>/2</p>
+                <p>Time Left: <span id="goNoGoTimeLeft">30</span> seconds</p>
+                <p id="message"></p>
+            </div>
+
+            <div id="resultsScreen" style="display: none;">
+                <h2>Test Results</h2>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Round</th>
+                            <th>Total Moves</th>
+                            <th>Correct Moves</th>
+                            <th>Wrong Moves</th>
+                            <th>Avg Reaction Time (ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- PVT Test Screen -->
+    <section id="pvtScreen" class="screen" style="display: none;">
+        <div class="container">
+            <div id="pvtWelcome">
+                <h1>Welcome to Psycho-Motor Vigilance Task (PVT)</h1>
+
+                <div class="instructions">
+                    <p>Press start button. Press <span class="space-key">SPACEBAR</span> as soon as possible after <span
+                            class="red-text">red numbers</span> appear in the box.</p>
+                    <p>The red numbers will appear at random times.</p>
+                    <p>Taking the test for the entire 30 seconds allows a more accurate assessment.</p>
+                    <p>False starts (response times less than 100 msec) are excluded from final analysis.</p>
+                </div>
+
+                <button id="pvtStartButton">Start Test</button>
+            </div>
+
+            <div id="pvtTest" style="display: none;">
+                <h1>Test: Round <span id="pvtCurrentRound">1</span>/2</h1>
+                <div id="stimulusDisplay" class="stimulus-display">+</div>
+                <p>Time Left: <span id="pvtTimeLeft">30</span> seconds</p>
+                <p id="pvtMessage"></p>
+            </div>
+
+            <div id="pvtResults" style="display: none;">
+                <h2>Test Results</h2>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Round</th>
+                            <th>Average Reaction Time</th>
+                            <th>Valid Attempts</th>
+                            <th>False Starts</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pvtResultsBody">
+                    </tbody>
+                </table>
+                <div id="pvtFinalResults"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trail Making Test Screen -->
+    <section id="trailMakingScreen" class="screen" style="display: none;">
+        <div class="container">
+            <!-- Welcome Screen -->
+            <div id="tmWelcome">
+                <h1>Welcome to Trail Making Test</h1>
+                <div class="instructions">
+                    <p>This test consists of two rounds with different patterns.</p>
+                    <p>Click the button below to begin with Round 1 instructions.</p>
+                </div>
+                <button id="tmStartButton">Begin Test</button>
+            </div>
+
+            <!-- Round 1 Instruction Screen -->
+            <div id="tmRound1Instructions" style="display: none;">
+                <h1>Round 1 Instructions</h1>
+                <div class="instructions">
+                    <p>Click on the circles in ascending order (1-2-3-4...), starting with 1 and ending with 25.</p>
+                    <p>The circles will be randomly distributed on the screen.</p>
+                    <p>Try to complete the sequence as quickly as possible.</p>
+                </div>
+                <button id="tmRound1StartButton">Start Practice Round</button>
+            </div>
+
+            <!-- Round 1 Practice Screen -->
+            <div id="tmRound1Practice" style="display: none;">
+                <h1>Round 1 Practice</h1>
+                <div class="instructions">
+                    <p>Practice clicking the circles in order (1-2-3...).</p>
+                    <p>This won't be timed - just get familiar with the task.</p>
+                    <p id="tmPracticeFeedback"></p>
+                </div>
+                <div id="practiceTrailContainer" class="trail-container"></div>
+                <button id="tmRound1PracticeComplete">I'm Ready for the Real Test</button>
+            </div>
+
+            <!-- Round 1 Test Screen -->
+            <div id="tmRound1Test" style="display: none;">
+                <h1>Round 1</h1>
+                <p>Time: <span id="tmTime">0</span> seconds</p>
+                <div id="trailContainer" class="trail-container"></div>
+            </div>
+
+            <!-- Round 2 Instructions -->
+            <div id="tmRound2Instructions" style="display: none;">
+                <h1>Round 2 Instructions</h1>
+                <div class="instructions">
+                    <p>Now alternate between numbers and letters (1-A-2-B...), starting with 1 and ending with 13.</p>
+                    <p>The circles will be randomly distributed on the screen.</p>
+                    <p>Try to complete the sequence as quickly as possible.</p>
+                </div>
+                <button id="tmRound2StartButton">Start Practice Round</button>
+            </div>
+
+            <!-- Round 2 Practice Screen -->
+            <div id="tmRound2Practice" style="display: none;">
+                <h1>Round 2 Practice</h1>
+                <div class="instructions">
+                    <p>Practice alternating between numbers and letters (1-A-2-B...).</p>
+                    <p>This won't be timed - just get familiar with the task.</p>
+                    <p id="tmRound2PracticeFeedback"></p>
+                </div>
+                <div id="round2PracticeTrailContainer" class="trail-container"></div>
+                <button id="tmRound2PracticeComplete">I'm Ready for the Real Test</button>
+            </div>
+
+            <!-- Round 2 Test Screen -->
+            <div id="tmRound2Test" style="display: none;">
+                <h1>Round 2</h1>
+                <p>Time: <span id="tmRound2Time">0</span> seconds</p>
+                <div id="round2TrailContainer" class="trail-container"></div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="tmResults" style="display: none;">
+                <h2>Test Results</h2>
+                <div id="tmFinalResults" class="results-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Completion Screen -->
+    <section id="completionScreen" class="screen" style="display: none;">
+        <div class="completion-container">
+            <div class="completion-header">
+                <h1>Thank You for Participating!</h1>
+                <p>You have successfully completed all the cognitive tests.</p>
+            </div>
+
+            <div class="results-actions">
+                <button id="viewResults" class="btn-primary">View My Results</button>
+                <button id="startNewSession" class="btn-secondary">Add New User</button>
+            </div>
+
+            <div id="resultsContainer" style="display: none;">
+                <h3>Your Test Results</h3>
+                <div class="results-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Name</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Results will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include all JavaScript files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="video_recorder.js"></script>
+    <script src="data_collector.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
