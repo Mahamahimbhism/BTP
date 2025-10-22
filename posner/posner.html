@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posner Cueing Task</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="posner.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
+            <h1>Welcome to the Posner Cueing Task</h1>
+
+            <div class="instructions">
+                <h3>Instructions:</h3>
+                <p>This task measures your <strong>spatial attention</strong> and reaction time.</p>
+                
+                <div class="task-description">
+                    <h4>What you'll see:</h4>
+                    <ul>
+                        <li>A central <strong>fixation cross (+)</strong> - keep your eyes on it at all times</li>
+                        <li>Two <strong>boxes</strong> on the left and right sides of the screen</li>
+                        <li>A <strong>cue</strong> that will appear on one or both sides</li>
+                        <li>A <strong>target (★)</strong> that will appear in one of the boxes</li>
+                    </ul>
+                </div>
+
+                <div class="task-instructions">
+                    <h4>Your Task:</h4>
+                    <p>As soon as you see the <strong>★</strong> (star) appear in either box:</p>
+                    <ul>
+                        <li>Press <kbd>←</kbd> (Left Arrow) if the star appears in the <strong>LEFT</strong> box</li>
+                        <li>Press <kbd>→</kbd> (Right Arrow) if the star appears in the <strong>RIGHT</strong> box</li>
+                    </ul>
+                    <p class="emphasis">Respond as <strong>quickly</strong> and <strong>accurately</strong> as possible!</p>
+                </div>
+
+                <div class="trial-types">
+                    <h4>Types of Trials:</h4>
+                    
+                    <div class="trial-type-box valid">
+                        <h5>Valid Cue Trial (80%)</h5>
+                        <p>The cue appears on one side, and the target appears on the <strong>SAME side</strong></p>
+                        <p class="tip">💡 The cue correctly predicts where the target will appear</p>
+                    </div>
+
+                    <div class="trial-type-box invalid">
+                        <h5>Invalid Cue Trial (10%)</h5>
+                        <p>The cue appears on one side, but the target appears on the <strong>OPPOSITE side</strong></p>
+                        <p class="tip">⚠️ The cue misleads you - requires attention shift</p>
+                    </div>
+
+                    <div class="trial-type-box neutral">
+                        <h5>Neutral Cue Trial (10%)</h5>
+                        <p>The cue appears on <strong>BOTH sides</strong>, target can appear on either side</p>
+                        <p class="tip">🔄 No predictive information provided</p>
+                    </div>
+                </div>
+
+                <p class="important-note">⚠️ <strong>Important:</strong> Keep your eyes fixated on the central cross (+) at all times. Do not look at the boxes directly!</p>
+            </div>
+
+            <button id="startButton">Start Practice</button>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practiceScreen" style="display: none;">
+            <h1>Practice Round</h1>
+            <p class="instruction-text">Keep eyes on the center cross</p>
+            
+            <div class="posner-display">
+                <div class="box-container left" id="practiceLeftBox">
+                    <div class="cue" id="practiceLeftCue"></div>
+                    <div class="target" id="practiceLeftTarget">★</div>
+                </div>
+                
+                <div class="fixation" id="practiceFixation">+</div>
+                
+                <div class="box-container right" id="practiceRightBox">
+                    <div class="cue" id="practiceRightCue"></div>
+                    <div class="target" id="practiceRightTarget">★</div>
+                </div>
+            </div>
+            
+            <div class="trial-info">
+                <p>Practice Trial: <span id="practiceTrialNum">0</span> / 12</p>
+            </div>
+            
+            <p id="practiceFeedback" class="feedback-message"></p>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="testScreen" style="display: none;">
+            <h1>Posner Cueing Task</h1>
+            <p class="instruction-text">Press the arrow key corresponding to the target location</p>
+            
+            <div class="posner-display">
+                <div class="box-container left" id="leftBox">
+                    <div class="cue" id="leftCue"></div>
+                    <div class="target" id="leftTarget">★</div>
+                </div>
+                
+                <div class="fixation" id="fixation">+</div>
+                
+                <div class="box-container right" id="rightBox">
+                    <div class="cue" id="rightCue"></div>
+                    <div class="target" id="rightTarget">★</div>
+                </div>
+            </div>
+            
+            <div class="trial-info">
+                <p>Block: <span id="currentBlock">1</span> / 3</p>
+                <p>Trial: <span id="currentTrial">0</span> / 40</p>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" style="display: none;">
+            <h2>Posner Cueing Task Results</h2>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Cue Type</th>
+                        <th>Correct</th>
+                        <th>Errors</th>
+                        <th>Accuracy (%)</th>
+                        <th>Avg RT (ms)</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+
+            <div id="cuingEffect" class="cuing-effect"></div>
+
+            <button id="goToAnotherTest">Go to Another Test</button>
+        </div>
+    </div>
+
+    <script src="../data_collector.js"></script>
+    <script src="../video_recorder.js"></script>
+    <script src="../base.js"></script>
+    <script src="posner.js"></script>
+</body>
+
+</html>
+

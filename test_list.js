@@ -94,7 +94,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     fingerTapping: null,
                     goNoGo: null,
                     pvt: null,
-                    trailMaking: null
+                    trailMaking: null,
+                    nBack: null,
+                    stroop: null,
+                    flanker: null,
+                    posner: null
                 },
                 testStartTime: new Date().toISOString(),
                 completedTests: []

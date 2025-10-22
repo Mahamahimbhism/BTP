@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N-Back Paradigm Task</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="n_back.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
+            <h1>Welcome to the N-Back Paradigm Task</h1>
+
+            <div class="instructions">
+                <h3>Instructions:</h3>
+                <p>In this task, you will see a sequence of letters appearing one at a time.</p>
+                <p>Your task is to determine if the current letter <strong>matches</strong> the letter that appeared <strong>N positions back</strong> in the sequence.</p>
+                
+                <div class="task-explanation">
+                    <h4>Three Task Blocks:</h4>
+                    <ul>
+                        <li><strong>0-Back:</strong> Press <span class="key-highlight">SPACEBAR</span> if the current letter is <strong>X</strong></li>
+                        <li><strong>2-Back:</strong> Press <span class="key-highlight">SPACEBAR</span> if the current letter matches the letter shown <strong>2 positions back</strong></li>
+                        <li><strong>3-Back:</strong> Press <span class="key-highlight">SPACEBAR</span> if the current letter matches the letter shown <strong>3 positions back</strong></li>
+                    </ul>
+                </div>
+
+                <p>Each block has 30 trials with a 2-second interval between letters.</p>
+                <p>There will be a 30-second rest period between blocks.</p>
+                <p>Try to be as <strong>accurate</strong> and <strong>fast</strong> as possible!</p>
+            </div>
+
+            <button id="startButton">Start Practice</button>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practiceScreen" style="display: none;">
+            <h1>Practice Round: <span id="practiceLevel">0-Back</span></h1>
+            <p class="instruction-text">Press SPACEBAR when you see a target match</p>
+            
+            <div id="practiceStimulus" class="stimulus-display">
+                <span id="practiceLetter">+</span>
+            </div>
+            
+            <div class="trial-info">
+                <p>Trial: <span id="practiceTrialNum">0</span> / 10</p>
+            </div>
+            
+            <p id="practiceFeedback" class="feedback-message"></p>
+        </div>
+
+        <!-- Rest Screen -->
+        <div id="restScreen" style="display: none;">
+            <h1>Rest Period</h1>
+            <p class="rest-message">Please take a short break.</p>
+            <p class="rest-timer">Next block starts in: <span id="restTimer">30</span> seconds</p>
+            <p class="rest-info">Upcoming: <span id="nextBlockInfo"></span></p>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="testScreen" style="display: none;">
+            <h1>N-Back Task: <span id="currentLevel">0-Back</span></h1>
+            <p class="instruction-text" id="blockInstruction">Press SPACEBAR when you see the letter X</p>
+            
+            <div id="stimulusDisplay" class="stimulus-display">
+                <span id="letterDisplay">+</span>
+            </div>
+            
+            <div class="trial-info">
+                <p>Block: <span id="currentBlock">1</span> / 3</p>
+                <p>Trial: <span id="currentTrial">0</span> / 30</p>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" style="display: none;">
+            <h2>N-Back Task Results</h2>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Block</th>
+                        <th>Hits</th>
+                        <th>Misses</th>
+                        <th>False Alarms</th>
+                        <th>Correct Rejections</th>
+                        <th>Accuracy (%)</th>
+                        <th>Avg RT (ms)</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+
+            <div id="overallStats" class="overall-stats"></div>
+
+            <button id="goToAnotherTest">Go to Another Test</button>
+        </div>
+    </div>
+
+    <script src="../data_collector.js"></script>
+    <script src="../video_recorder.js"></script>
+    <script src="../base.js"></script>
+    <script src="n_back.js"></script>
+</body>
+
+</html>
+

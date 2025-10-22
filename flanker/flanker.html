@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eriksen Flanker Task</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flanker.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
+            <h1>Welcome to the Eriksen Flanker Task</h1>
+
+            <div class="instructions">
+                <h3>Instructions:</h3>
+                <p>In this task, you will see a row of <strong>5 arrows</strong> on the screen.</p>
+                <p>Your task is to respond to the direction of the <strong>CENTER arrow</strong> only, ignoring the surrounding arrows.</p>
+                
+                <div class="response-guide">
+                    <h4>Response Keys:</h4>
+                    <ul>
+                        <li>Press <kbd>←</kbd> (Left Arrow) if the center arrow points <strong>LEFT</strong></li>
+                        <li>Press <kbd>→</kbd> (Right Arrow) if the center arrow points <strong>RIGHT</strong></li>
+                    </ul>
+                </div>
+
+                <div class="trial-types">
+                    <h4>Three Types of Trials:</h4>
+                    
+                    <div class="trial-example congruent">
+                        <h5>1. Congruent Trials</h5>
+                        <p class="arrows">→ → → → →</p>
+                        <p>All arrows point in the same direction</p>
+                        <p class="example-response">Response: Press <kbd>→</kbd></p>
+                    </div>
+
+                    <div class="trial-example incongruent">
+                        <h5>2. Incongruent Trials</h5>
+                        <p class="arrows">← ← → ← ←</p>
+                        <p>Flanking arrows point in the opposite direction</p>
+                        <p class="example-response">Response: Press <kbd>→</kbd> (center arrow)</p>
+                    </div>
+
+                    <div class="trial-example neutral">
+                        <h5>3. Neutral Trials</h5>
+                        <p class="arrows">□ □ → □ □</p>
+                        <p>Flanking stimuli have no directional information</p>
+                        <p class="example-response">Response: Press <kbd>→</kbd> (center arrow)</p>
+                    </div>
+                </div>
+
+                <p class="important-note">⚠️ <strong>Important:</strong> Please respond as <strong>quickly</strong> and <strong>accurately</strong> as possible!</p>
+            </div>
+
+            <button id="startButton">Start Practice</button>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practiceScreen" style="display: none;">
+            <h1>Practice Round</h1>
+            <p class="instruction-text">Respond to the CENTER arrow only</p>
+            
+            <div class="fixation-container">
+                <div id="practiceFixation" class="fixation">+</div>
+            </div>
+
+            <div id="practiceStimulusContainer" class="stimulus-container">
+                <div id="practiceStimulus" class="stimulus-display"></div>
+            </div>
+            
+            <div class="trial-info">
+                <p>Practice Trial: <span id="practiceTrialNum">0</span> / 10</p>
+            </div>
+            
+            <p id="practiceFeedback" class="feedback-message"></p>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="testScreen" style="display: none;">
+            <h1>Eriksen Flanker Task</h1>
+            <p class="instruction-text">Respond to the CENTER arrow direction</p>
+            
+            <div class="fixation-container">
+                <div id="fixation" class="fixation">+</div>
+            </div>
+
+            <div id="stimulusContainer" class="stimulus-container">
+                <div id="stimulusDisplay" class="stimulus-display"></div>
+            </div>
+            
+            <div class="trial-info">
+                <p>Block: <span id="currentBlock">1</span> / 3</p>
+                <p>Trial: <span id="currentTrial">0</span> / 40</p>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" style="display: none;">
+            <h2>Eriksen Flanker Task Results</h2>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Trial Type</th>
+                        <th>Correct</th>
+                        <th>Errors</th>
+                        <th>Accuracy (%)</th>
+                        <th>Avg RT (ms)</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+
+            <div id="flankerEffect" class="flanker-effect"></div>
+
+            <button id="goToAnotherTest">Go to Another Test</button>
+        </div>
+    </div>
+
+    <script src="../data_collector.js"></script>
+    <script src="../video_recorder.js"></script>
+    <script src="../base.js"></script>
+    <script src="flanker.js"></script>
+</body>
+
+</html>
+

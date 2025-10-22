@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroop Color-Word Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stroop.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen">
+            <h1>Welcome to the Stroop Color-Word Test</h1>
+
+            <div class="instructions">
+                <h3>Instructions:</h3>
+                <p>This test consists of <strong>three blocks</strong>:</p>
+                
+                <div class="block-explanation">
+                    <h4>Block 1: Word Reading</h4>
+                    <p>You will see color words printed in <strong>black ink</strong>.</p>
+                    <p><strong>Task:</strong> Read the word aloud as quickly as possible.</p>
+                    <p class="example">Example: If you see <span style="color: black;">RED</span>, say "RED"</p>
+                </div>
+
+                <div class="block-explanation">
+                    <h4>Block 2: Color Naming</h4>
+                    <p>You will see <strong>colored squares</strong>.</p>
+                    <p><strong>Task:</strong> Name the color of each square as quickly as possible.</p>
+                    <p class="example">Example: If you see <span style="color: red;">■■■</span>, say "RED"</p>
+                </div>
+
+                <div class="block-explanation">
+                    <h4>Block 3: Interference (Stroop Effect)</h4>
+                    <p>You will see color words printed in <strong>mismatched ink colors</strong>.</p>
+                    <p><strong>Task:</strong> Name the <strong>INK COLOR</strong>, not the word.</p>
+                    <p class="example">Example: If you see <span style="color: blue;">RED</span>, say "BLUE"</p>
+                </div>
+
+                <p class="important-note">⚠️ <strong>Important:</strong> This test requires you to speak your responses aloud. 
+                Please ensure you are in a quiet environment. Press the corresponding key after you've spoken your answer.</p>
+                
+                <div class="key-guide">
+                    <p><strong>Response Keys:</strong></p>
+                    <ul>
+                        <li><kbd>R</kbd> = RED</li>
+                        <li><kbd>Y</kbd> = YELLOW</li>
+                        <li><kbd>G</kbd> = GREEN</li>
+                        <li><kbd>B</kbd> = BLUE</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button id="startButton">Start Practice</button>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practiceScreen" style="display: none;">
+            <h1>Practice: <span id="practiceBlockName">Block 1</span></h1>
+            <p class="instruction-text" id="practiceInstruction">Read the word aloud</p>
+            
+            <div id="practiceStimulusContainer" class="stimulus-container">
+                <div id="practiceStimulus" class="stimulus-display">+</div>
+            </div>
+            
+            <div class="response-keys">
+                <span class="key-button">R</span>
+                <span class="key-button">Y</span>
+                <span class="key-button">G</span>
+                <span class="key-button">B</span>
+            </div>
+
+            <div class="trial-info">
+                <p>Practice Trial: <span id="practiceTrialNum">0</span> / 5</p>
+            </div>
+            
+            <p id="practiceFeedback" class="feedback-message"></p>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="testScreen" style="display: none;">
+            <h1><span id="currentBlockName">Block 1</span>: Word Reading</h1>
+            <p class="instruction-text" id="blockInstruction">Read the word aloud and press the corresponding key</p>
+            
+            <div id="stimulusContainer" class="stimulus-container">
+                <div id="stimulusDisplay" class="stimulus-display">+</div>
+            </div>
+            
+            <div class="response-keys">
+                <span class="key-button">R</span>
+                <span class="key-button">Y</span>
+                <span class="key-button">G</span>
+                <span class="key-button">B</span>
+            </div>
+
+            <div class="trial-info">
+                <p>Block: <span id="currentBlock">1</span> / 3</p>
+                <p>Trial: <span id="currentTrial">0</span> / 12</p>
+            </div>
+
+            <div class="timer-display">
+                <p>Time: <span id="blockTimer">0.0</span>s</p>
+            </div>
+        </div>
+
+        <!-- Rest Screen -->
+        <div id="restScreen" style="display: none;">
+            <h1>Rest Period</h1>
+            <p class="rest-message">Great job! Take a short break.</p>
+            <p class="rest-timer">Next block starts in: <span id="restTimer">10</span> seconds</p>
+            <p class="rest-info">Upcoming: <span id="nextBlockInfo"></span></p>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" style="display: none;">
+            <h2>Stroop Test Results</h2>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Block</th>
+                        <th>Time (s)</th>
+                        <th>Errors</th>
+                        <th>Accuracy (%)</th>
+                        <th>Avg RT per item (ms)</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+
+            <div id="stroopEffect" class="stroop-effect"></div>
+
+            <button id="goToAnotherTest">Go to Another Test</button>
+        </div>
+    </div>
+
+    <script src="../data_collector.js"></script>
+    <script src="../video_recorder.js"></script>
+    <script src="../base.js"></script>
+    <script src="stroop.js"></script>
+</body>
+
+</html>
+

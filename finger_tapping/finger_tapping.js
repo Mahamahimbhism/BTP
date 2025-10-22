@@ -120,7 +120,11 @@ function endTest() {
             '../finger_tapping/finger_tapping.html',
             '../go_no_go/go_no_go.html',
             '../pvt/pvt.html',
-            '../trail_making/trail_making.html'
+            '../trail_making/trail_making.html',
+            '../n_back/n_back.html',
+            '../stroop/stroop.html',
+            '../flanker/flanker.html',
+            '../posner/posner.html'
         ];
         let completedTests = JSON.parse(sessionStorage.getItem('completedTests')) || [];
         completedTests.push('../finger_tapping/finger_tapping.html');

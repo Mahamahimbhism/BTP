@@ -308,15 +308,24 @@ function showFinalResults() {
 
     // Rest of the function remains the same...
     document.getElementById('goToAnotherTest').addEventListener('click', () => {
-        const tests = ['finger_tapping.html', 'go_no_go.html'/*, 'conners_cpt.html'*/, 'pvt.html', 'trail_making.html'];
+        const tests = [
+            'finger_tapping/finger_tapping.html',
+            'go_no_go/go_no_go.html',
+            'pvt/pvt.html',
+            'trail_making/trail_making.html',
+            'n_back/n_back.html',
+            'stroop/stroop.html',
+            'flanker/flanker.html',
+            'posner/posner.html'
+        ];
         let completedTests = JSON.parse(sessionStorage.getItem('completedTests')) || [];
-        completedTests.push('go_no_go.html');
+        completedTests.push('go_no_go/go_no_go.html');
         sessionStorage.setItem('completedTests', JSON.stringify(completedTests));
 
         const availableTests = tests.filter(test => !completedTests.includes(test));
         if (availableTests.length > 0) {
             const randomTest = availableTests[Math.floor(Math.random() * availableTests.length)];
-            location.href = randomTest;
+            window.location.href = '../' + randomTest;
         } else {
             sessionStorage.removeItem('completedTests');
             location.href = '../completion/completion.html';
